@@ -21,11 +21,14 @@
         android:id="@+id/viewPager"
         android:layout_below="@id/tab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="@dimen/frameSize"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        />
     <me.relex.circleindicator.CircleIndicator3
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:gravity="bottom"/>
+        android:layout_gravity="bottom"/>
     </FrameLayout>
 </LinearLayout>
