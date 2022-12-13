@@ -5,13 +5,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
-        <ImageView
+        <TextView
             android:id="@+id/imgBanner2"
+            android:text="2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/dice_2"
+            android:layout_height="400dp"
+            android:textSize="50dp"
+            android:gravity="center"
+            android:background="@color/sky"
             android:contentDescription="@string/app_name"/>
 
     </RelativeLayout>
