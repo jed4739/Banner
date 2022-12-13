@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <data class="Main">
+                <variable
+                    name="main"
+                    type="com.example.banner.MainActivity" />
+        </data>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity"
+            android:orientation="vertical"
+            android:gravity="center">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/frameSize"
-        android:layout_marginTop="20dp">
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white">
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white" />
 
-    </com.google.android.material.tabs.TabLayout>
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
-        android:layout_below="@id/tab"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/frameSize"
-        android:clipToPadding="false"
-        android:clipChildren="false"
-        />
-    <me.relex.circleindicator.CircleIndicator3
-        android:id="@+id/indicator"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_gravity="bottom"/>
-    </FrameLayout>
-</LinearLayout>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_below="@id/tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:clipToPadding="false"
+                    android:clipChildren="false" />
+
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    app:ci_drawable="@drawable/red_radius"
+                    app:ci_drawable_unselected="@drawable/black_radius" />
+        </LinearLayout>
+</layout>
