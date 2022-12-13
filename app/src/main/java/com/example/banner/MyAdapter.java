@@ -29,6 +29,6 @@ public class MyAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 10000;
+        return 3;
     }
 }
