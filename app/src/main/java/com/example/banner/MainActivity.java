@@ -61,13 +61,13 @@ public class MainActivity extends FragmentActivity {
         tabLayout = binding.tab;
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
-                case 2:
+                case 0:
                     tab.setText("Tab" + 1);
                     break;
-                case 3:
+                case 1:
                     tab.setText("Tab" + 2);
                     break;
-                case 4:
+                case 2:
                     tab.setText("Tab" + 3);
                     break;
             }
@@ -83,7 +83,7 @@ public class MainActivity extends FragmentActivity {
     * */
     private void setViewPager() {
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        viewPager.setCurrentItem(4);
+        viewPager.setCurrentItem(0);
         viewPager.setOffscreenPageLimit(3);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -92,11 +92,6 @@ public class MainActivity extends FragmentActivity {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 if (positionOffsetPixels == 0) {
                     viewPager.setCurrentItem(position);
-                    if (binding.viewPager.getCurrentItem() == 6) {
-                        binding.viewPager.setCurrentItem(3);
-                    }else if (binding.viewPager.getCurrentItem() == 2){
-                        binding.viewPager.setCurrentItem(5);
-                    }
                     // 3초마다 자동 넘기기
                     sliderHandler.removeCallbacks(sliderRunnable);
                     sliderHandler.postDelayed(sliderRunnable, 3000);
