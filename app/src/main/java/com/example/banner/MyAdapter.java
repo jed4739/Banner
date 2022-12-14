@@ -31,6 +31,6 @@ public class MyAdapter extends FragmentStateAdapter {
     // 배너 아이템 갯수
     @Override
     public int getItemCount() {
-        return 3;
+        return 10000;
     }
 }

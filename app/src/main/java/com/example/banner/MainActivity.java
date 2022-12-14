@@ -18,6 +18,7 @@ import me.relex.circleindicator.CircleIndicator3;
 public class MainActivity extends FragmentActivity {
     private Main binding;
     private int page = 3;
+    private int tab_pos;
     private ViewPager2 viewPager;
     private MyAdapter myAdapter;
     private CircleIndicator3 indicator;
@@ -59,19 +60,64 @@ public class MainActivity extends FragmentActivity {
     // 뷰페이저와 탭레이아웃 연결 및 설정
     private void setTabLayout() {
         tabLayout = binding.tab;
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            switch (position) {
-                case 0:
-                    tab.setText("Tab" + 1);
-                    break;
-                case 1:
-                    tab.setText("Tab" + 2);
-                    break;
-                case 2:
-                    tab.setText("Tab" + 3);
-                    break;
+        for (int i = 1; i <= page; i++) {
+            tabLayout.addTab(tabLayout.newTab().setText("Tab"+i));
+        }
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab_pos = tab.getPosition();
+                switch (tab_pos) {
+                    case 0:
+                        Log.i("ddddddd","첫번째");
+                        if (viewPager.getCurrentItem()%3 == 1) {
+                            viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
+                        }else if(viewPager.getCurrentItem()%3 == 2){
+                            viewPager.setCurrentItem(viewPager.getCurrentItem()-2);
+                        }
+                        break;
+                    case 1:
+                        if (viewPager.getCurrentItem()%3 == 0) {
+                            viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                        }else if(viewPager.getCurrentItem()%3 == 2){
+                            viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
+                        }
+                        Log.i("ddddddd","두번째");
+                        break;
+                    case 2:
+                        if (viewPager.getCurrentItem()%3 == 1) {
+                            viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                        }else if(viewPager.getCurrentItem()%3 == 0){
+                            viewPager.setCurrentItem(viewPager.getCurrentItem()+2);
+                        }
+                        Log.i("ddddddd","세번째");
+                        break;
+                }
             }
-        }).attach();
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+//        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+//            switch (position) {
+//                case 0:
+//                    tab.setText("Tab" + 1);
+//                    break;
+//                case 1:
+//                    tab.setText("Tab" + 2);
+//                    break;
+//                case 2:
+//                    tab.setText("Tab" + 3);
+//                    break;
+//            }
+//        }).attach();
     }
     /*
     * setOrientation -> 가로 스크롤
@@ -83,7 +129,7 @@ public class MainActivity extends FragmentActivity {
     * */
     private void setViewPager() {
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        viewPager.setCurrentItem(0);
+        viewPager.setCurrentItem(5001);
         viewPager.setOffscreenPageLimit(3);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
