@@ -12,12 +12,14 @@ public class MyAdapter extends FragmentStateAdapter {
         super(activity);
         this.count = count;
     }
-
+    /*
+    * Fragment
+    * 원하는 viewpager 위치에 fragment 를 생성
+    * */
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         int index = position % count;
-
         if (index == 0) {
             return new fragment_1p();
         } else if (index == 1) {
@@ -26,9 +28,9 @@ public class MyAdapter extends FragmentStateAdapter {
             return new fragment_3p();
         }
     }
-
+    // 배너 아이템 갯수
     @Override
     public int getItemCount() {
-        return 3;
+        return 5;
     }
 }
