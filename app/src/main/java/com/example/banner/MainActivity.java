@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import me.relex.circleindicator.CircleIndicator3;
 
 public class MainActivity extends FragmentActivity {
+
     private Main binding;
     private int page = 3;
     private int tab_pos;
@@ -27,6 +28,7 @@ public class MainActivity extends FragmentActivity {
     private final Handler sliderHandler = new Handler();
     Runnable sliderRunnable;
     private TabLayout tabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +82,13 @@ public class MainActivity extends FragmentActivity {
             }
         });
     }
-
+    /*
+    * setTabLayout 에서 넘어옴.
+    * onTabSelected, onTabReselected 에게서 매개변수 인자를 받음.
+    * tab_pos 현재 배너 번호 객체
+    * 다른탭을 누를 시 onTabLayout 메소드가 실행
+    * 같은탭을 누를 시 onTabReselected 메소드가 실행
+    * */
     private void tabBtn(int tab_pos) {
         switch (tab_pos) {
             case 0:
@@ -138,7 +146,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-//                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
                 indicator.animatePageSelected(position%page);
             }
         });
