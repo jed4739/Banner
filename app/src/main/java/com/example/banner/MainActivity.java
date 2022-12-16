@@ -2,11 +2,13 @@ package com.example.banner;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.banner.databinding.Main;
 import com.google.android.material.tabs.TabLayout;
@@ -37,12 +39,12 @@ public class MainActivity extends FragmentActivity {
         setTabLayout();
         setViewPager();
     }
-
     // 다음 아이템으로 넘김
     private void autoSlider() {
-        sliderRunnable = () -> binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
+        sliderRunnable = () -> {
+            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
+        };
     }
-
     // 뷰페이저와 어답터 연결
     private void setViewPagerAdapter(){
         viewPager = binding.viewPager;
@@ -60,65 +62,54 @@ public class MainActivity extends FragmentActivity {
     // 뷰페이저와 탭레이아웃 연결 및 설정
     private void setTabLayout() {
         tabLayout = binding.tab;
-        for (int i = 1; i <= page; i++) {
-            tabLayout.addTab(tabLayout.newTab().setText("Tab"+i));
-        }
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 tab_pos = tab.getPosition();
-                switch (tab_pos) {
-                    case 0:
-                        Log.i("ddddddd","첫번째");
-                        if (viewPager.getCurrentItem()%3 == 1) {
-                            viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
-                        }else if(viewPager.getCurrentItem()%3 == 2){
-                            viewPager.setCurrentItem(viewPager.getCurrentItem()-2);
-                        }
-                        break;
-                    case 1:
-                        if (viewPager.getCurrentItem()%3 == 0) {
-                            viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
-                        }else if(viewPager.getCurrentItem()%3 == 2){
-                            viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
-                        }
-                        Log.i("ddddddd","두번째");
-                        break;
-                    case 2:
-                        if (viewPager.getCurrentItem()%3 == 1) {
-                            viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
-                        }else if(viewPager.getCurrentItem()%3 == 0){
-                            viewPager.setCurrentItem(viewPager.getCurrentItem()+2);
-                        }
-                        Log.i("ddddddd","세번째");
-                        break;
-                }
+                tabBtn(tab_pos);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                tab_pos = tab.getPosition();
+                tabBtn(tab_pos);
             }
         });
-//        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-//            switch (position) {
-//                case 0:
-//                    tab.setText("Tab" + 1);
-//                    break;
-//                case 1:
-//                    tab.setText("Tab" + 2);
-//                    break;
-//                case 2:
-//                    tab.setText("Tab" + 3);
-//                    break;
-//            }
-//        }).attach();
     }
+
+    private void tabBtn(int tab_pos) {
+        switch (tab_pos) {
+            case 0:
+                if (viewPager.getCurrentItem()%3 == 1) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
+                }else if(viewPager.getCurrentItem()%3 == 2){
+                    viewPager.setCurrentItem(viewPager.getCurrentItem()-2);
+                }
+                Log.i("ddddddd","첫번째");
+                break;
+            case 1:
+                if (viewPager.getCurrentItem()%3 == 0) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                }else if(viewPager.getCurrentItem()%3 == 2){
+                    viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
+                }
+                Log.i("ddddddd","두번째");
+                break;
+            case 2:
+                if (viewPager.getCurrentItem()%3 == 1) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                }else if(viewPager.getCurrentItem()%3 == 0){
+                    viewPager.setCurrentItem(viewPager.getCurrentItem()+2);
+                }
+                Log.i("ddddddd","세번째");
+                break;
+        }
+    }
+
     /*
     * setOrientation -> 가로 스크롤
     * setCurrentItem -> 시작 아이템 위치
@@ -147,6 +138,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+//                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
                 indicator.animatePageSelected(position%page);
             }
         });
