@@ -1,5 +1,6 @@
 package com.example.banner;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -43,9 +44,7 @@ public class MainActivity extends FragmentActivity {
     }
     // 다음 아이템으로 넘김
     private void autoSlider() {
-        sliderRunnable = () -> {
-            binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
-        };
+        sliderRunnable = () -> binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
     }
     // 뷰페이저와 어답터 연결
     private void setViewPagerAdapter(){
@@ -92,29 +91,30 @@ public class MainActivity extends FragmentActivity {
     private void tabBtn(int tab_pos) {
         switch (tab_pos) {
             case 0:
-                if (viewPager.getCurrentItem()%3 == 1) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
-                }else if(viewPager.getCurrentItem()%3 == 2){
-                    viewPager.setCurrentItem(viewPager.getCurrentItem()-2);
+                if (viewPager.getCurrentItem() % 3 == 1) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+                } else if (viewPager.getCurrentItem() % 3 == 2) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 2);
                 }
-                Log.i("ddddddd","첫번째");
+                Log.i("ddddddd", "첫번째");
                 break;
             case 1:
-                if (viewPager.getCurrentItem()%3 == 0) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
-                }else if(viewPager.getCurrentItem()%3 == 2){
-                    viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
+                if (viewPager.getCurrentItem() % 3 == 0) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                } else if (viewPager.getCurrentItem() % 3 == 2) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
                 }
-                Log.i("ddddddd","두번째");
+                Log.i("ddddddd", "두번째");
                 break;
             case 2:
-                if (viewPager.getCurrentItem()%3 == 1) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
-                }else if(viewPager.getCurrentItem()%3 == 0){
-                    viewPager.setCurrentItem(viewPager.getCurrentItem()+2);
+                if (viewPager.getCurrentItem() % 3 == 1) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                } else if (viewPager.getCurrentItem() % 3 == 0) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 2);
                 }
-                Log.i("ddddddd","세번째");
+                Log.i("ddddddd", "세번째");
                 break;
+            default:
         }
     }
 
@@ -142,12 +142,12 @@ public class MainActivity extends FragmentActivity {
                     sliderHandler.postDelayed(sliderRunnable, 3000);
                 }
             }
+
             // 스크롤이 무한대일 경우 3 -> 1 로 인디케이터 설정
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
-                indicator.animatePageSelected(position%page);
+                indicator.animatePageSelected(position % page);
             }
         });
     }
