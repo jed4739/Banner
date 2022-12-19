@@ -4,9 +4,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.banner.databinding.Main;
 import com.google.android.material.tabs.TabLayout;
@@ -19,7 +21,7 @@ public class MainActivity extends FragmentActivity {
     private MyAdapter myAdapter;
 
     private int page = 3;
-    private int tab_pos;
+    private int tab_pos, getViewPager;
 
     private ViewPager2 viewPager;
     private CircleIndicator3 indicator;
@@ -91,28 +93,29 @@ public class MainActivity extends FragmentActivity {
     * 같은탭을 누를 시 onTabReselected 메소드가 실행
     * */
     private void tabBtn(int tab_pos) {
+        getViewPager = viewPager.getCurrentItem();
         switch (tab_pos) {
             case 0:
-                if (viewPager.getCurrentItem() % 3 == 1) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-                } else if (viewPager.getCurrentItem() % 3 == 2) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 2);
+                if (getViewPager % 3 == 1) {
+                    viewPager.setCurrentItem(getViewPager - 1);
+                } else if (getViewPager % 3 == 2) {
+                    viewPager.setCurrentItem(getViewPager - 2);
                 }
                 Log.i("ddddddd", "첫번째");
                 break;
             case 1:
-                if (viewPager.getCurrentItem() % 3 == 0) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-                } else if (viewPager.getCurrentItem() % 3 == 2) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+                if (getViewPager % 3 == 0) {
+                    viewPager.setCurrentItem(getViewPager + 1);
+                } else if (getViewPager % 3 == 2) {
+                    viewPager.setCurrentItem(getViewPager - 1);
                 }
                 Log.i("ddddddd", "두번째");
                 break;
             case 2:
-                if (viewPager.getCurrentItem() % 3 == 1) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-                } else if (viewPager.getCurrentItem() % 3 == 0) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 2);
+                if (getViewPager % 3 == 1) {
+                    viewPager.setCurrentItem(getViewPager + 1);
+                } else if (getViewPager % 3 == 0) {
+                    viewPager.setCurrentItem(getViewPager + 2);
                 }
                 Log.i("ddddddd", "세번째");
                 break;
@@ -129,8 +132,8 @@ public class MainActivity extends FragmentActivity {
     * */
     private void setViewPager() {
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        viewPager.setCurrentItem(5001);
         viewPager.setOffscreenPageLimit(3);
+        viewPager.setCurrentItem(9999);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -146,6 +149,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
                 indicator.animatePageSelected(position % page);
             }
         });
