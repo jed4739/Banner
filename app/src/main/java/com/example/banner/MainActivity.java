@@ -18,14 +18,12 @@ import me.relex.circleindicator.CircleIndicator3;
 public class MainActivity extends FragmentActivity {
 
     private Main binding;
-    private MyAdapter myAdapter;
 
-    private int page = 3;
-    private int tab_pos, getViewPager;
+    private final int page = 3;
+    private int tab_pos;
 
     private ViewPager2 viewPager;
     private CircleIndicator3 indicator;
-    private TabLayout tabLayout;
 
     private final Handler sliderHandler = new Handler();
     private Runnable sliderRunnable;
@@ -49,7 +47,7 @@ public class MainActivity extends FragmentActivity {
     // 뷰페이저와 어답터클래스 연결
     private void setViewPagerAdapter(){
         viewPager = binding.viewPager;
-        myAdapter = new MyAdapter(this, page);
+        MyAdapter myAdapter = new MyAdapter(this, page);
         viewPager.setAdapter(myAdapter);
     }
     // 뷰페이저와 인디케이터 연결
@@ -60,7 +58,7 @@ public class MainActivity extends FragmentActivity {
     }
     // 뷰페이저와 탭레이아웃 연결 및 설정
     private void setTabLayout() {
-        tabLayout = binding.tab;
+        TabLayout tabLayout = binding.tab;
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             /*
             * 현재 선택중이지 않은 다른 탭을 선택시 실행되는 메소드
@@ -93,29 +91,29 @@ public class MainActivity extends FragmentActivity {
     * 같은탭을 누를 시 onTabReselected 메소드가 실행
     * */
     private void tabBtn(int tab_pos) {
-        getViewPager = viewPager.getCurrentItem();
+        int getViewPager = viewPager.getCurrentItem();
         switch (tab_pos) {
             case 0:
                 if (getViewPager % 3 == 1) {
-                    viewPager.setCurrentItem(getViewPager - 1);
+                    viewPager.setCurrentItem(getViewPager - 1,false);
                 } else if (getViewPager % 3 == 2) {
-                    viewPager.setCurrentItem(getViewPager - 2);
+                    viewPager.setCurrentItem(getViewPager - 2,false);
                 }
                 Log.i("ddddddd", "첫번째");
                 break;
             case 1:
                 if (getViewPager % 3 == 0) {
-                    viewPager.setCurrentItem(getViewPager + 1);
+                    viewPager.setCurrentItem(getViewPager + 1,false);
                 } else if (getViewPager % 3 == 2) {
-                    viewPager.setCurrentItem(getViewPager - 1);
+                    viewPager.setCurrentItem(getViewPager - 1,false);
                 }
                 Log.i("ddddddd", "두번째");
                 break;
             case 2:
                 if (getViewPager % 3 == 1) {
-                    viewPager.setCurrentItem(getViewPager + 1);
+                    viewPager.setCurrentItem(getViewPager + 1,false);
                 } else if (getViewPager % 3 == 0) {
-                    viewPager.setCurrentItem(getViewPager + 2);
+                    viewPager.setCurrentItem(getViewPager + 2,false);
                 }
                 Log.i("ddddddd", "세번째");
                 break;
@@ -151,6 +149,7 @@ public class MainActivity extends FragmentActivity {
                 super.onPageSelected(position);
                 Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
                 indicator.animatePageSelected(position % page);
+                binding.tab.selectTab(binding.tab.getTabAt(position % page));
             }
         });
     }
