@@ -95,25 +95,25 @@ public class MainActivity extends FragmentActivity {
         switch (tab_pos) {
             case 0:
                 if (getViewPager % 3 == 1) {
-                    viewPager.setCurrentItem(getViewPager - 1,false);
+                    viewPager.setCurrentItem(getViewPager - 1, false);
                 } else if (getViewPager % 3 == 2) {
-                    viewPager.setCurrentItem(getViewPager - 2,false);
+                    viewPager.setCurrentItem(getViewPager - 2, false);
                 }
                 Log.i("ddddddd", "첫번째");
                 break;
             case 1:
                 if (getViewPager % 3 == 0) {
-                    viewPager.setCurrentItem(getViewPager + 1,false);
+                    viewPager.setCurrentItem(getViewPager + 1, false);
                 } else if (getViewPager % 3 == 2) {
-                    viewPager.setCurrentItem(getViewPager - 1,false);
+                    viewPager.setCurrentItem(getViewPager - 1, false);
                 }
                 Log.i("ddddddd", "두번째");
                 break;
             case 2:
                 if (getViewPager % 3 == 1) {
-                    viewPager.setCurrentItem(getViewPager + 1,false);
+                    viewPager.setCurrentItem(getViewPager + 1, false);
                 } else if (getViewPager % 3 == 0) {
-                    viewPager.setCurrentItem(getViewPager + 2,false);
+                    viewPager.setCurrentItem(getViewPager + 2, false);
                 }
                 Log.i("ddddddd", "세번째");
                 break;
