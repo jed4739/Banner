@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 public class fragment_3p extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_3p, container, false);
-        return rootView;
+        return (ViewGroup) inflater.inflate(R.layout.fragment_3p, container, false);
     }
 }
