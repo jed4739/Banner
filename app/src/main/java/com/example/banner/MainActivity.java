@@ -4,11 +4,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.banner.databinding.Main;
 import com.google.android.material.tabs.TabLayout;
@@ -42,7 +40,8 @@ public class MainActivity extends FragmentActivity {
     }
     // 다음 아이템으로 넘김
     private void autoSlider() {
-        sliderRunnable = () -> binding.viewPager.setCurrentItem(binding.viewPager.getCurrentItem() + 1);
+        ViewPager2 viewPager = binding.viewPager;
+        sliderRunnable = () -> viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
     }
     // 뷰페이저와 어답터클래스 연결
     private void setViewPagerAdapter(){
@@ -131,7 +130,8 @@ public class MainActivity extends FragmentActivity {
     private void setViewPager() {
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         viewPager.setOffscreenPageLimit(3);
-        viewPager.setCurrentItem(9999);
+        viewPager.setCurrentItem(3, false);
+        indicator.animatePageSelected(0);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -147,9 +147,13 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
                 indicator.animatePageSelected(position % page);
                 binding.tab.selectTab(binding.tab.getTabAt(position % page));
+                if (position == 6) {
+                    viewPager.setCurrentItem(3, false);
+                } else if (position == 2) {
+                    viewPager.setCurrentItem(5, false);
+                }
             }
         });
     }

@@ -20,17 +20,18 @@ public class MyAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         int index = position % count;
-        if (index == 0) {
-            return new fragment_1p();
-        } else if (index == 1) {
-            return new fragment_2p();
-        } else {
-            return new fragment_3p();
+        switch (index) {
+            case 0:
+                return new fragment_1p();
+            case 1:
+                return new fragment_2p();
+            default:
+                return new fragment_3p();
         }
     }
     // 배너 아이템 갯수
     @Override
     public int getItemCount() {
-        return 20000;
+        return 7;
     }
 }
